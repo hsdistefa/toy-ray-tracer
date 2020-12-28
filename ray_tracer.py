@@ -31,10 +31,15 @@ def nearest_intersected_object(objects, ray_origin, ray_direction):
 
 
 def render():
+    # Dimensions of screen output
+    # Increase for higher resolution
     width = 300
     height = 200
 
-    camera = np.array([0, 0, 1])
+    # Camera position
+    camera = np.array([0, 0, 3])
+
+    # Light properties
     light = {'position': np.array([5, 5, 5]),
              'ambient': np.array([1, 1, 1]),
              'diffuse': np.array([1, 1, 1]),
@@ -43,13 +48,16 @@ def render():
     ratio = float(width) / height
     screen = (-1, 1 / ratio, 1, -1 / ratio)  # left, top, right, bottom
 
+    # Object properties
     objects = [
         {'center': np.array([-0.2, 0, -1]), 'radius': 0.7, 'ambient': np.array([0.1, 0, 0]),
          'diffuse': np.array([0.7, 0, 0]), 'specular': np.array([1, 1, 1]), 'shininess': 100},
         {'center': np.array([0.1, -0.3, 0]), 'radius': 0.1, 'ambient': np.array([0.1, 0, 0.1]),
          'diffuse': np.array([0.7, 0, 0.7]), 'specular': np.array([1, 1, 1]), 'shininess': 100},
         {'center': np.array([-0.3, 0, 0]), 'radius': 0.15, 'ambient': np.array([0, 0.1, 0]),
-         'diffuse': np.array([0, 0.6, 0]), 'specular': np.array([1, 1, 1]), 'shininess': 100}
+         'diffuse': np.array([0, 0.6, 0]), 'specular': np.array([1, 1, 1]), 'shininess': 100},
+        {'center': np.array([0, -9000, 0]), 'radius': 9000 - 0.7, 'ambient': np.array([0.1, 0.1, 0.1]),
+         'diffuse': np.array([0.6, 0.6, 0.6]), 'specular': np.array([1, 1, 1]), 'shininess': 100}
     ]
 
     image = np.zeros((height, width, 3))
@@ -85,7 +93,7 @@ def render():
 
             # Render object using Blinn-Phong model
 
-            # RGB
+            # RGB values
             illumination = np.zeros((3))
 
             # Ambient
